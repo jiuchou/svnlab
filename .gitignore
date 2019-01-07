@@ -1,0 +1,4 @@
+frontend/dist/
+log/*.log
+*/*/__pycache__/
+*/*/migrations/
