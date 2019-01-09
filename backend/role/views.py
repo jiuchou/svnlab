@@ -8,16 +8,18 @@ def getPermissionList(request):
     response = {}
     try:
         req = request.GET
+        username = req['username']
+        page = req['page']
 
-        roleLists = Role.objects.filter(username=req['username']).values('username', 'path', 'module', 'manager', 'role')
-        print(roleLists)
-        total = len(roleLists)
+        roleList = Role.objects.filter(username=username).values('username', 'path', 'module', 'manager', 'role').order_by('path')
+        print(roleList)
+        total = len(roleList)
 
-        role_lists = []
+        roleListByPaginator = []
         # show 10 contacts per page
-        paginator = Paginator(roleLists, 20)
+        paginator = Paginator(roleList, 20)
         try:
-            contacts = paginator.page(req['page'])
+            contacts = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer deliver first page.
             contacts = paginator.page(1)
@@ -25,11 +27,11 @@ def getPermissionList(request):
             # If page is out of range (e.g. 9999), deliver last page of resluts.
             contacts = paginator.page(paginator.num_pages)
         for role in contacts:
-            role_lists.append(role)
+            roleListByPaginator.append(role)
 
         response['data'] = {
             'total': total,
-            'role_lists': role_lists
+            'roleList': roleListByPaginator
         }
         response['message'] = 'Success: get role lists success!'
         response['status'] = 200

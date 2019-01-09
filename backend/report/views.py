@@ -1,0 +1,40 @@
+from django.http import JsonResponse
+from backend.report.models import Report
+import time
+
+# Create your views here.
+def getPermissionList(request):
+    response = {}
+    try:
+        req = request.GET
+        username = req['username']
+        applicant = req['username']
+        path = req['path']
+        oldRole = req['oldRole']
+        newRole = req['newRole']
+
+        identifierTime = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
+        identifier = 'svnlab{}'.format(identifierTime)
+        applySource = 'PermissionManagement-User'
+
+        if Report.objects.filter(username=username, path=path, state=0):
+            response['message'] = 'Forbidden: change role by user failed! username: {}'.format(username)
+            response['status'] = 403
+        else:
+            Report.objects.create(
+                identifier=identifier,
+                path=path,
+                username=username,
+                applicant=applicant,
+                old_role=oldRole,
+                new_role=newRole,
+                state=0,
+                apply_source=applySource
+            )
+            response['message'] = 'Success: change role by user success! username: {}'.format(username)
+            response['status'] = 200
+    except Exception as e:
+        response['message'] = 'Failed: {}'.format(str(e))
+        response['status'] = 500
+
+    return JsonResponse(response)
