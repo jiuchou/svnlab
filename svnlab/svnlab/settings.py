@@ -91,10 +91,36 @@ WSGI_APPLICATION = '{}.wsgi.application'.format(SUB_DIR)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'svnlab',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    },
+    'svndb': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'svninfo',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        # 'PASSWORD': 'mysql123',
+        # 'HOST': '10.6.5.116',
+        'PORT': '3306',
     }
 }
+
+
+DATABASE_APPS_MAPPING = {
+    # example:
+    #   'app_name': 'database_name'
+    #   'user': 'default',
+    'svn': 'svndb',
+}
+
+DATABASE_ROUTERS = [
+    '{}.databaseAppsRouter.DatabaseAppsRouter'.format(SUB_DIR)
+]
 
 
 # Password validation
