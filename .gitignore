@@ -1,0 +1,10 @@
+# 开发过程存放前端静态文件目录
+frontend/
+
+# 开发生成目录
+__pycache__/
+migrations/
+
+# 打包生成目录
+dist/
+*.egg-info/
