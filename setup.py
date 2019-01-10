@@ -15,6 +15,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 # 第三方依赖包及版本
 requires = [
     'django>=2.0.9',
+    'django-cors-headers>=2.4.0',
     'docutils>=0.3',
 ]
 
