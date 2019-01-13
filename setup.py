@@ -1,3 +1,7 @@
+"""
+setup.py for svnlab
+"""
+
 import os
 from setuptools import find_packages, setup
 
@@ -17,6 +21,7 @@ requires = [
     'django>=2.0.9',
     'django-cors-headers>=2.4.0',
     'docutils>=0.3',
+    'python-ldap>=3.1.0',
 ]
 
 # setuptools [1]
@@ -59,7 +64,7 @@ setup(
     # ],
 
     license='MIT License',
-    keywords = "svnlab",
+    keywords="svnlab",
     description='A simple Django app to manage svn server.',
     long_description=README,
     url='https://github.com/jiuchou/svnlab',
