@@ -1,6 +1,6 @@
 include LICENSE
 include README.rst
-recursive-include svnlab/utils *
+recursive-include svnlab/common *
 recursive-include docs *
 prune migrations
 prune */migrations
