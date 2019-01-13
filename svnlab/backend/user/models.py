@@ -47,9 +47,8 @@ class UserInfo(models.Model):
         return self.username
 
     class Meta:
-        '''
-        docstring
-        '''
+        """docstring
+        """
         managed = True
         db_table = 'user_info'
         # 一个字符串的列表或元组, 每个字符串是一个字段名
@@ -57,3 +56,19 @@ class UserInfo(models.Model):
         #   前面没有"-"的字段表示正序
         #   使用"?"来表示随机排序
         ordering = ['-username']
+
+class Role(models.Model):
+    """docstring
+    """
+    username = models.CharField(max_length=50, blank=True, null=True)
+    role = models.CharField(max_length=300, blank=True, null=True)
+    module = models.CharField(max_length=50, blank=True, null=True)
+    path = models.CharField(max_length=300, blank=True, null=True)
+    url = models.CharField(max_length=300, blank=True, null=True)
+    manager = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        """docstring
+        """
+        managed = True
+        db_table = 'user_role'

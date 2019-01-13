@@ -41,13 +41,13 @@ setup(
 
     # Project uses reStructuredText, so ensure that the docutils get
     # installed or upgraded on the target machine
-    install_requires = requires,
+    install_requires=requires,
 
     # use MANIFEST.in [2]
     # 该参数被设置为 True 时自动添加包中受版本控制的数据文件，可替代 package_data，同时，
     # exclude_package_data 可以排除某些文件。注意当需要加入没有被版本控制的文件时，还是仍然需要使用
     # package_data 参数才行
-    include_package_data = True,
+    include_package_data=True,
     # exclude_package_data={
     #     '': ['.gitignore']
     # },
