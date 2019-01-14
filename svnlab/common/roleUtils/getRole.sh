@@ -22,12 +22,10 @@ getRoleByIdentify() {
     sed -n "1,${lineNumber} p" ${authFile} > temp
     # [Document:/test]
     module=$(grep "]" temp | tail -n 1 | awk -F ':' '{print $1}' | awk -F '[' '{print $2}')
-    path=$(grep "]" temp | tail -n 1 | awk -F ':/' '{print $1}' | awk -F ']' '{print $1}')
-    prefix_url=$(sed -n "/${module}/p" prefixUrl | awk -F '=' '{print $2}')
+    path=$(grep "]" temp | tail -n 1 | awk -F ':/' '{print $2}' | awk -F ']' '{print $1}')
+    prefix_url=$(sed -n "/${module}/p" ${prefixUrl} | awk -F '=' '{print $2}')
     url=${prefix_url}${module}/${path}
-    rm temp
-
-    echo "username,${role},${module},${path},${url},${manager}" >> ${userRoleFile}
+    echo "username,${role},${module},${path},${url},manager" >> ${userRoleFile}
 }
 
 getRole() {
@@ -50,8 +48,10 @@ getRole() {
 }
 
 username=$1
-authFile="dav_svn.authz"
-userRoleFile="userRoleFile"
+currentPath=$(cd $(dirname $0); pwd -P)
+authFile="${currentPath}/dav_svn.authz"
+prefixUrl="${currentPath}/prefixUrl"
+userRoleFile="${currentPath}/userRoleFile"
 
 rm -f ${userRoleFile}
 getRole ${username}

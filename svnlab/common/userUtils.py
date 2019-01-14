@@ -40,7 +40,7 @@ def userLogon(username, ldapUserInfo):
     }
 
     # ParaseRoleToDB
-    result = os.system("chmod +x {0}/common/roleUtils/getRole.sh; {0}/common/roleUtils/getRole.sh {1}".format(ROOT_DIR, username))
+    result = os.system("chmod +x {0}/common/roleUtils/*.sh; {0}/common/roleUtils/getRole.sh {1}; {0}/common/roleUtils/insertRoleToDB.sh {1}".format(ROOT_DIR, username))
     if result == 0:
         print("Success: Parase {0}'s role to database success!".format(username))
     else:

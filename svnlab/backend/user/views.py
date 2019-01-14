@@ -21,7 +21,7 @@ from rest_framework.views import APIView
 
 # user-defined
 # 安装时存在svnlab.common库
-from svnlab.common.user import userLogon
+from svnlab.common import userUtils
 from .CustomLdap import MyLdap
 from .models import Role
 
@@ -31,7 +31,7 @@ class UserLoginView(APIView):
     # ldap的地址和端口号
     AUTH_LDAP_SERVER_URI = 'ldap://10.1.2.180:389'
 
-    def get(self, request):
+    def post(self, request):
         '''
         User Login by LDAP server.
         '''
@@ -42,7 +42,7 @@ class UserLoginView(APIView):
         myLdap = MyLdap(self.AUTH_LDAP_SERVER_URI, username, password)
         result, ldapUserInfo = myLdap.ldap_search(username)
         if result:
-            customUserInfo = userLogon(username, ldapUserInfo)
+            customUserInfo = userUtils.userLogon(username, ldapUserInfo)
             # 生成随机字符串
             if request.session.get('username'):
                 del request.session["username"]
