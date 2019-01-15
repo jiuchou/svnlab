@@ -26,7 +26,7 @@ class SvnList(models.Model):
         """
         managed = True
         db_table = 'svn_list'
-        app_label = 'svn'
+        app_label = 'svninfo'
 
 # Create your models here.
 class Report(models.Model):
