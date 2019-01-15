@@ -1,5 +1,5 @@
 '''
-user.views
+svn.views
 ~~~~~~~~~
 
 This module implements the Requests Views.
@@ -20,7 +20,7 @@ from django.http import JsonResponse
 from .models import Report
 
 # Create your views here.
-def changeRoleByUser(request):
+def changeUserRole(request):
     '''View of user login operation.
     '''
     response = {}
