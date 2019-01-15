@@ -1,6 +1,6 @@
 #!/bin/bash
 
-getRoleByIdentify() {
+getUserRoleByIdentify() {
     # 10:11111=rw
     # 10:@group=rw
     lineContent=$1
@@ -28,20 +28,20 @@ getRoleByIdentify() {
     echo "username,${role},${module},${path},${url},manager" >> ${userRoleFile}
 }
 
-getRole() {
+getUserRole() {
     username=$1
     lineContents=$(grep -rn "${username}" ${authFile})
     for lineContent in ${lineContents[@]}; do
         identify=$(echo "${lineContent}" | awk -F ':' '{print $2}' | awk -F '=' '{print $1}')
         if [[ "${identify}" == "${username}" ]]; then
             # 用户
-            getRoleByIdentify "${lineContent}"
+            getUserRoleByIdentify "${lineContent}"
         else
             # 组
             groupname=${identify}
             groupLineContents=$(grep -rn "^@${groupname}=" ${authFile})
             for groupLineContent in ${groupLineContents[@]}; do
-                getRoleByIdentify "${groupLineContent}"
+                getUserRoleByIdentify "${groupLineContent}"
             done
         fi
     done
@@ -54,5 +54,8 @@ prefixUrl="${currentPath}/prefixUrl"
 userRoleFile="${currentPath}/userRoleFile"
 
 rm -f ${userRoleFile}
-getRole ${username}
+getUserRole ${username}
 sed -i "s/username/${username}/g" ${userRoleFile}
+
+source ${currentPath}/insertRoleToDB.sh
+insertUserRoleToDB ${username}
