@@ -14,6 +14,7 @@ View is an logical management library, written in Python, for user beings.
 import json
 
 # third-party library
+from django.core import serializers
 #分页功能
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
@@ -23,7 +24,7 @@ from rest_framework.views import APIView
 # 安装时存在svnlab.common库
 from svnlab.common import userUtils
 from .CustomLdap import MyLdap
-from .models import Role
+from .models import UserRole, ModuleRole
 
 class UserLoginView(APIView):
     '''View of user login operation.
@@ -57,7 +58,7 @@ class UserLoginView(APIView):
 
         return JsonResponse(response)
 
-def getPermissionList(request):
+def getUserPermissionList(request):
     '''View of user role operation.
     '''
     response = {}
@@ -65,13 +66,13 @@ def getPermissionList(request):
     username = req['username']
     page = req['page']
 
-    roleList = Role.objects.filter(username=username).values('username', 'role', 'module', 'path', 'url', 'manager').order_by('url')
-    print(roleList)
-    total = len(roleList)
+    userRoleList = UserRole.objects.filter(username=username).values('username', 'role', 'module', 'path', 'url', 'manager').order_by('url')
+    print(userRoleList)
+    total = len(userRoleList)
 
-    roleListByPaginator = []
+    userRoleListByPaginator = []
     # show 10 contacts per page
-    paginator = Paginator(roleList, 20)
+    paginator = Paginator(userRoleList, 20)
     try:
         contacts = paginator.page(page)
     except PageNotAnInteger:
@@ -81,13 +82,13 @@ def getPermissionList(request):
         # If page is out of range (e.g. 9999), deliver last page of resluts.
         contacts = paginator.page(paginator.num_pages)
     for role in contacts:
-        roleListByPaginator.append(role)
+        userRoleListByPaginator.append(role)
 
     response['data'] = {
         'total': total,
-        'roleList': roleListByPaginator
+        'roleList': userRoleListByPaginator
     }
-    response['message'] = 'Success: get role lists success!'
+    response['message'] = 'Success: get user permission lists success!'
     response['status'] = 200
 
     return JsonResponse(response)
