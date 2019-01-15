@@ -12,12 +12,12 @@ Requests is an HTTP library, written in Python, for user beings. Basic GET and P
 
 from django.urls import path
 
-import svnOperation
-import views
+from . import svnOperation
+from . import views
 
 urlpatterns = [
     path(r'getSVNPathList', svnOperation.getSVNPathList),
     path(r'getSVNPathDetail', svnOperation.getSVNPathDetail),
 
-    path(r'changeRoleByUser', views.changeRoleByUser),
+    path(r'changeUserRole', views.changeUserRole),
 ]
