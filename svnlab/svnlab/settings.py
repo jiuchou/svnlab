@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -99,14 +99,14 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     },
-    'svndb': {
+    'svninfo': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'svninfo',
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        # 'PASSWORD': 'mysql123',
-        # 'HOST': '10.6.5.116',
+        # 'PASSWORD': 'root',
+        # 'HOST': '127.0.0.1',
+        'PASSWORD': 'mysql123',
+        'HOST': '10.6.5.116',
         'PORT': '3306',
     }
 }
@@ -116,7 +116,7 @@ DATABASE_APPS_MAPPING = {
     # example:
     #   'app_name': 'database_name'
     #   'user': 'default',
-    'svn': 'svndb',
+    'svninfo': 'svninfo',
 }
 
 DATABASE_ROUTERS = [
