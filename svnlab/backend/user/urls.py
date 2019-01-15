@@ -12,9 +12,10 @@ Requests is an HTTP library, written in Python, for user beings. Basic GET and P
 
 from django.urls import path
 
-import views
+from . import views
 
 urlpatterns = [
     path(r'login', views.UserLoginView.as_view()),
-    path(r'getPermissionList', views.getPermissionList),
+    path(r'getUserPermissionList', views.getUserPermissionList),
+    path(r'getModuleSvnList', views.getModuleSvnList),
 ]
