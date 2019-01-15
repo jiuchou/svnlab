@@ -12,6 +12,7 @@ View is an logical management library, written in Python, for user beings.
 
 # built-in library
 import json
+import os
 
 # third-party library
 from django.core import serializers
@@ -86,9 +87,56 @@ def getUserPermissionList(request):
 
     response['data'] = {
         'total': total,
-        'roleList': userRoleListByPaginator
+        'userRoleList': userRoleListByPaginator
     }
     response['message'] = 'Success: get user permission lists success!'
     response['status'] = 200
+
+    return JsonResponse(response)
+
+def getModuleSvnList(request):
+    '''PermissionManagement-Module
+    Get Permission list by manager when user is module manager.
+    '''
+    response = {}
+    # 获取请求参数
+    req = request.GET
+    # Token = req['Token']
+    username = req['username']
+    manager = req['manager']
+
+    # 根据模块名获取当前所有模块的地址和权限情况
+    # 将获取到到数据写入到数据库
+    # ParaseModuleRoleToDB
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    result = os.system("chmod +x {0}/common/roleUtils/*.sh; {0}/common/roleUtils/getModuleRole.sh {1};".format(BASE_DIR, manager))
+    if result == 0:
+        print("Success: Parase {0}'s role to database success!".format(username))
+    else:
+        print("Error: Parase {0}'s role to database failed!".format(username))
+
+    # 从数据库读取数据
+    moduleRoleList = ModuleRole.objects.filter(manager=manager).all().order_by('url')
+    moduleRoleList = serializers.serialize("json", moduleRoleList)
+    total = len(moduleRoleList)
+    response['data'] = {
+        'total': total,
+        'moduleRoleList': moduleRoleList
+    }
+    response['message'] = 'Success: get module permission lists success!'
+    response['status'] = 200
+
+    return JsonResponse(response)
+
+def getModuleSvnDetail(request):
+    '''PermissionManagement-Module
+    Get Permission list by manager when user is module manager.
+    '''
+    response = {}
+    # 获取请求参数
+    req = request.GET
+    print(req)
+    # Token = req['Token']
+    # username = req['username']
 
     return JsonResponse(response)

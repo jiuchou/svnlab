@@ -14,8 +14,6 @@ user is an simple library, written in Python, for user beings.
 import json
 import os
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 def userLogon(username, ldapUserInfo):
     """
     docstring
@@ -40,7 +38,8 @@ def userLogon(username, ldapUserInfo):
     }
 
     # ParaseRoleToDB
-    result = os.system("chmod +x {0}/common/roleUtils/*.sh; {0}/common/roleUtils/getUserRole.sh {1};".format(ROOT_DIR, username))
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    result = os.system("chmod +x {0}/common/roleUtils/*.sh; {0}/common/roleUtils/getUserRole.sh {1};".format(BASE_DIR, username))
     if result == 0:
         print("Success: Parase {0}'s role to database success!".format(username))
     else:

@@ -16,6 +16,9 @@ from . import views
 
 urlpatterns = [
     path(r'login', views.UserLoginView.as_view()),
+    # PermissionManagement-User
     path(r'getUserPermissionList', views.getUserPermissionList),
+    # PermissionManagement-Module
     path(r'getModuleSvnList', views.getModuleSvnList),
+    path(r'getModuleSvnDetail', views.getModuleSvnDetail),
 ]

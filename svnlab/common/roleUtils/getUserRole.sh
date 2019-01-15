@@ -58,4 +58,4 @@ getUserRole ${username}
 sed -i "s/username/${username}/g" ${userRoleFile}
 
 source ${currentPath}/insertRoleToDB.sh
-insertUserRoleToDB ${username}
+insertRoleToDB ${username}

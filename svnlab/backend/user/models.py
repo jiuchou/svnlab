@@ -6,7 +6,7 @@ This module implements the Requests Models.
 
 :copyright: (c) 2019 by JiuChou.
 :license: MIT, see LICENSE for more details.
-:updateTime: 2019.01.13
+:updateTime: 2019.01.15
 """
 
 from django.db import models
@@ -57,7 +57,7 @@ class UserInfo(models.Model):
         #   使用"?"来表示随机排序
         ordering = ["-username"]
 
-class Role(models.Model):
+class UserRole(models.Model):
     """docstring
     """
     username = models.CharField(max_length=50, blank=True, null=True)
@@ -72,3 +72,21 @@ class Role(models.Model):
         """
         managed = True
         db_table = "user_role"
+
+class ModuleRole(models.Model):
+    """docstring
+    """
+    path = models.CharField(max_length=128, blank=True, null=True)
+    url = models.CharField(max_length=512, blank=True, null=True)
+    module = models.CharField(max_length=64, blank=True, null=True)
+    manager = models.CharField(max_length=64, blank=True, null=True)
+    readOnlyUser = models.CharField(max_length=512, blank=True, null=True)
+    readOnlyUserNum = models.IntegerField(blank=True)
+    readAndWriteUser = models.CharField(max_length=512, blank=True, null=True)
+    readAndWriteUserNum = models.IntegerField(blank=True)
+
+    class Meta:
+        """docstring
+        """
+        managed = True
+        db_table = "module_role"
