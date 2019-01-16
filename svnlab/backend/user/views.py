@@ -103,25 +103,14 @@ def getModuleSvnList(request):
     req = request.GET
     # Token = req['Token']
     username = req['username']
-    manager = req['manager']
-
-    # 根据模块名获取当前所有模块的地址和权限情况
-    # 将获取到到数据写入到数据库
-    # ParaseModuleRoleToDB
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    result = os.system("chmod +x {0}/common/roleUtils/*.sh; {0}/common/roleUtils/getModuleRole.sh {1};".format(BASE_DIR, manager))
-    if result == 0:
-        print("Success: Parase {0}'s role to database success!".format(username))
-    else:
-        print("Error: Parase {0}'s role to database failed!".format(username))
+    manager = req['username']
 
     # 从数据库读取数据
-    moduleRoleList = ModuleRole.objects.filter(manager=manager).all().order_by('url')
-    moduleRoleList = serializers.serialize("json", moduleRoleList)
-    total = len(moduleRoleList)
+    moduleRoleList = ModuleRole.objects.filter(manager=manager).values('path', 'url', 'module', 'manager', 'readOnlyUserNum', 'readAndWriteUserNum').order_by('url')
+
     response['data'] = {
-        'total': total,
-        'moduleRoleList': moduleRoleList
+        'total': len(moduleRoleList),
+        'moduleRoleList': list(moduleRoleList)
     }
     response['message'] = 'Success: get module permission lists success!'
     response['status'] = 200
@@ -138,5 +127,30 @@ def getModuleSvnDetail(request):
     print(req)
     # Token = req['Token']
     # username = req['username']
+
+    return JsonResponse(response)
+
+def refreshModulePermissionList(request):
+    '''PermissionManagement-Module
+    Refresh Permission list by manager when user is module manager.
+    '''
+    response = {}
+    # 获取请求参数
+    req = request.GET
+    # Token = req['Token']
+    manager = req['username']
+    
+    # 根据模块名获取当前所有模块的地址和权限情况
+    # 将获取到到数据写入到数据库
+    # ParaseModuleRoleToDB
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    result = os.system("chmod +x {0}/common/roleUtils/*.sh; {0}/common/roleUtils/getModuleRole.sh {1};".format(BASE_DIR, manager))
+    if result == 0:
+        print("Success: Parase {0}'s manage module role to database success!".format(username))
+    else:
+        print("Error: Parase {0}'s manage module role to database failed!".format(username))
+
+    response['message'] = 'Success: refresh module permission lists success!'
+    response['status'] = 200
 
     return JsonResponse(response)
