@@ -21,4 +21,5 @@ urlpatterns = [
     # PermissionManagement-Module
     path(r'getModuleSvnList', views.getModuleSvnList),
     path(r'getModuleSvnDetail', views.getModuleSvnDetail),
+    path(r'refreshModulePermissionList', views.refreshModulePermissionList),
 ]
