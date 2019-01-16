@@ -21,7 +21,7 @@ EOF
     while read line; do
         query=$(echo ${line} | awk -F ',' '{printf("%s, \"%s\", \"%s\", \"%s\", \"%s\", %s", $1, $2, $3, $4, $5, $6)}')
         mysql -h${HOST} -P${PORT} -u${USERNAME} -p${PASSWORD} ${DATABASENAME} <<EOF 2>/dev/null
-            INSERT INTO ${userRoleTableName}(username,role,module,path,url,manager) VALUES(${query});
+            INSERT INTO ${userRoleTableName}(username, role, module, path, url, manager) VALUES(${query});
 EOF
     done < ${currentPath}/userRoleFile
 }
