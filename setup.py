@@ -20,6 +20,9 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 requires = [
     'django>=2.0.9',
     'django-cors-headers>=2.4.0',
+    'djangorestframework>=3.9.0',
+    'mysqlclient>=1.3.14',
+    'Pillow>=5.4.1',
     'docutils>=0.3',
     'python-ldap>=3.1.0',
 ]
