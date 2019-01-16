@@ -59,13 +59,13 @@ getModuleRole() {
         # Base on [modules:path] get UserInfo
         # readOnlyUser
         # readAndWriteUser
-        echo "module=${module}
-path=${path}
-url=${url}
-manager=${manager}
-readOnlyUser=${readOnlyUser}
+        echo "module=\"${module}\"
+path=\"${path}\"
+url=\"${url}\"
+manager=\"${manager}\"
+readOnlyUser=\"${readOnlyUser}\"
 readOnlyUserNum=${readOnlyUserNum}
-readAndWriteUser=${readAndWriteUser}
+readAndWriteUser=\"${readAndWriteUser}\"
 readAndWriteUserNum=${readAndWriteUserNum}
 " > ${moduleRoleFile}
 
