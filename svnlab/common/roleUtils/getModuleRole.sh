@@ -21,7 +21,7 @@ getUserInfo() {
 getModuleRole() {
     manager=$1
 
-    urls=$(grep "${manager}" managerToUrl | awk -F ',' '{print $2}')
+    urls=$(grep "${manager}" ${managerToUrl} | awk -F ',' '{print $2}')
     for url in ${urls[@]}; do
         # get module and path by url
         # http://10.6.5.2/svn/Documents/SETeam
