@@ -7,6 +7,9 @@ currentDir := $(shell dirname $(currentPath))
 # pip = /usr/local/python37/bin/pip3.7
 python3 = `which python3.7`
 pip3 = `which pip3.7`
+# Makefile不支持awk
+# pipInstallPath := $(shell $(pip3) show pip | grep 'Location' | awk '{print $2}')
+pipInstallPath := $(shell $(pip3) show pip | grep 'Location' | cut -d ' ' -f2)
 
 # make all
 # 	function: packageing app
@@ -30,6 +33,7 @@ uninstall:
 		find $(currentDir) -type d -name $$uselessDir | xargs -i rm -rf {}; \
 	done
 	$(pip3) uninstall svnlab -y
+	rm -rf $(pipInstallPath)/svnlab
 
 # make clean
 #	function: delete useless file
