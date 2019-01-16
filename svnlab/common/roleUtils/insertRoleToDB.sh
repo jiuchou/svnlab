@@ -27,13 +27,12 @@ EOF
 }
 
 insertModuleRoleToDB() {
-    manager=$1
+    source ${currentPath}/moduleRoleFile
 
     mysql -h${HOST} -P${PORT} -u${USERNAME} -p${PASSWORD} ${DATABASENAME} <<EOF 2>/dev/null
-        DELETE FROM ${moduleRoleTableName} WHERE manager=${manager};
+        DELETE FROM ${moduleRoleTableName} WHERE url="${url}";
 EOF
 
-    source ${currentPath}/moduleRoleFile
     mysql -h${HOST} -P${PORT} -u${USERNAME} -p${PASSWORD} ${DATABASENAME} <<EOF 2>/dev/null
         INSERT INTO ${moduleRoleTableName}(module, path, url, manager, readOnlyUser, readOnlyUserNum, readAndWriteUser, readAndWriteUserNum) VALUES("${module}", "${path}", "${url}", "${manager}", "${readOnlyUser}", ${readOnlyUserNum}, "${readAndWriteUser}", ${readAndWriteUserNum});
 EOF
