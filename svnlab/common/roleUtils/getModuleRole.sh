@@ -3,7 +3,7 @@
 getUserInfo() {
     type=$1
 
-    # 获取用户（user）
+    # 获取用户(user)
     userQuery=""
     users=$(cat lineContents | grep -v '@' | grep "${type}$" | awk -F '=' '{print $1}')
     for user in ${users[@]}; do
@@ -14,7 +14,7 @@ getUserInfo() {
     groups=$(cat lineContents | grep '@' | grep "${type}$" | awk -F '=' '{print $1}' | awk -F '@' '{print $2}')
     for group in ${groups[@]}; do
         groupUsers=$(grep "^${group}=" ${authFile} | awk -F '=' '{print $2}')
-        groupUserQuery="${groupUsers},${groupUsersQuery}"
+        groupUserQuery="${groupUsers},${groupUserQuery}"
     done
 }
 
@@ -23,13 +23,13 @@ getModuleRole() {
 
     urls=$(grep "${manager}" managerToUrl | awk -F ',' '{print $2}')
     for url in ${urls[@]}; do
-        # get modules and path bu url
+        # get module and path by url
         # http://10.6.5.2/svn/Documents/SETeam
         suffixUrl="${url#*svn*/}"
         module="${suffixUrl%%/*}"
         path="/${suffixUrl#*/}"
         projectDir="\[${module}\:${path}\]"
-        # 获取当前projectDir所在配置文件
+        # 获取当前projectDir所在配置文件行
         projectDirLineNum=$(grep -rn "${projectDir}" ${authFile} | awk -F ':' '{print $1}')
         if [[ "${projectDirLineNum}" == "" ]]; then
             continue
@@ -47,16 +47,16 @@ getModuleRole() {
         else
             readOnlyUser="${userQuery},${groupUserQuery}"
         fi
-        readOnlyUserNum=$(echo $(readOnlyUser) | tr ',' '\n' | grep -v "^$" | wc -l)
+        readOnlyUserNum=$(echo ${readOnlyUser} | tr ',' '\n' | grep -v "^$" | wc -l)
         getUserInfo "rw"
         if [[ "${groupUserQuery}" == "" ]]; then
             readAndWriteUser="${userQuery}"
         else
             readAndWriteUser="${userQuery},${groupUserQuery}"
         fi
-        readAndWriteUserNum=$(echo $(readAndWriteUser) | tr ',' '\n' | grep -v "^$" | wc -l)
+        readAndWriteUserNum=$(echo ${readAndWriteUser} | tr ',' '\n' | grep -v "^$" | wc -l)
 
-        # Base on [modules:path] get getUserInfo
+        # Base on [modules:path] get UserInfo
         # readOnlyUser
         # readAndWriteUser
         echo "module=${module}
@@ -84,5 +84,7 @@ managerToUrl="${currentPath}/managerToUrl"
 authFile="${currentPath}/dav_svn.authz"
 moduleRoleFile="${currentPath}/moduleRoleFile"
 
-source ${currentPath}/insertRoleToDB.sh
 getModuleRole ${manager}
+
+source ${currentPath}/insertRoleToDB.sh
+insertModuleRoleToDB ${manager}
