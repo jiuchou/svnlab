@@ -41,11 +41,16 @@ Quick start
     python manage.py migrate svn
     python manage.py migrate
 
-7. Run svnlab::
+7. Prepare frontend static file(directory is dist/)::
+
+    mkdir -p $python_site_packages/svnlab/frontend/dist
+    cp -rf dist/* $python_site_packages/svnlab/frontend/dist
+
+8. Run svnlab::
 
     python3.7 manage.py runserver 0.0.0.0:8888
 
-8. Start use or develop svnlab.
+9. Start use or develop svnlab.
 
 Quick Develop
 -------------
