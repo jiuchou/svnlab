@@ -84,7 +84,5 @@ managerToUrl="${currentPath}/managerToUrl"
 authFile="${currentPath}/dav_svn.authz"
 moduleRoleFile="${currentPath}/moduleRoleFile"
 
-getModuleRole ${manager}
-
 source ${currentPath}/insertRoleToDB.sh
-insertModuleRoleToDB ${manager}
+getModuleRole ${manager}
