@@ -30,7 +30,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
-    "10.6.13.34",
+    "10.6.5.100",
     "localhost",
     "127.0.0.1"
 ]
@@ -96,15 +96,13 @@ DATABASES = {
         'NAME': 'svnlab',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': '10.6.5.100',
         'PORT': '3306',
     },
     'svninfo': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'svninfo',
         'USER': 'root',
-        # 'PASSWORD': 'root',
-        # 'HOST': '127.0.0.1',
         'PASSWORD': 'mysql123',
         'HOST': '10.6.5.116',
         'PORT': '3306',
