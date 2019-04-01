@@ -3,10 +3,9 @@
 # 此定义只支持GNU make
 currentPath := $(shell pwd)/$(lastword $(MAKEFILE_LIST))
 currentDir := $(shell dirname $(currentPath))
-# python = /usr/local/python37/bin/python3.7
-# pip = /usr/local/python37/bin/pip3.7
-python3 = `which python3.7`
-pip3 = `which pip3.7`
+
+python3 = `which python3`
+pip3 = `which pip3`
 # Makefile不支持awk
 # pipInstallPath := $(shell $(pip3) show pip | grep 'Location' | awk '{print $2}')
 pipInstallPath := $(shell $(pip3) show pip | grep 'Location' | cut -d ' ' -f2)
@@ -26,7 +25,7 @@ install:
 
 # make uninstall
 #	function: delete useless file and uninstall app
-uselessDirs = dist __pycache__ migrations *.eg-info
+uselessDirs = dist __pycache__ migrations *.egg-info
 uninstall:
 	echo $(uselessDirs)
 	for uselessDir in `echo $(uselessDirs)`; do \

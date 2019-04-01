@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# HOST="10.6.13.34"
-HOST="127.0.0.1"
+# HOST="127.0.0.1"
+HOST="10.6.5.100"
 PORT="3306"
 USERNAME="root"
 PASSWORD="root"

@@ -1,6 +1,6 @@
 '''
-user.urls
-~~~~~~~~~
+svn.urls
+~~~~~~~~
 
 This module implements the Requests Urls.
 Requests is an HTTP library, written in Python, for user beings. Basic GET and POST.
@@ -19,5 +19,5 @@ urlpatterns = [
     path(r'getSVNPathList', svnOperation.getSVNPathList),
     path(r'getSVNPathDetail', svnOperation.getSVNPathDetail),
 
-    path(r'changeUserRole', views.changeUserRole),
+    path(r'update-role', views.update_role),
 ]
