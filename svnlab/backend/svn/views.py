@@ -45,7 +45,7 @@ def update_role(request):
         if Report.objects.filter(username=username,
                                  path=path,
                                  module=module,
-                                 state=0):
+                                 status=0):
             print("WARNING: username({0}) is running".format(username))
         else:
             Report.objects.create(
@@ -55,7 +55,7 @@ def update_role(request):
                 applicant=applicant,
                 old_role=oldRole,
                 new_role=newRole,
-                state=0,
+                status=0,
                 apply_source=applySource
             )
     except Exception:
