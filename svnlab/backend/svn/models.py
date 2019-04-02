@@ -1,6 +1,6 @@
 """
 svn.models
-~~~~~~~~~
+~~~~~~~~~~
 
 This module implements the Requests Models.
 
@@ -44,6 +44,7 @@ class Report(models.Model):
     STATUS_CHOICES = ((0, '进行中'), (1, '成功'), (2, '失败'))
     identifier = models.CharField(max_length=64, unique=True)
     path = models.CharField(max_length=512)
+    module = models.CharField(max_length=512)
     username = models.CharField(max_length=64)
     applicant = models.CharField(max_length=64)
     old_role = models.CharField(max_length=64)
