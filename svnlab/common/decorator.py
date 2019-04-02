@@ -23,23 +23,23 @@ def get_token(username):
     """Get user token by username
     For example:
         >>> token = jwt.encode(
-            {
-                'iss': "svnlab",
-                'sub': "svnlab-frontend",
-                'usernmae': "jiuchou",
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10),
-                'iat': datetime.datetime.utcnow()
-            },
-            "secret_key,
-            algorithm="HS256"
-        )
+                {
+                    'iss': "svnlab",
+                    'sub': "svnlab-frontend",
+                    'usernmae': "jiuchou",
+                    'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10),
+                    'iat': datetime.datetime.utcnow()
+                },
+                "secret_key,
+                algorithm="HS256"
+            )
         >>> print(token)
     """
     playload = {
         'iss': "svnlab",
         'sub': "svnlab-frontend",
         'usernmae': username,
-        'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=10),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
         'iat': datetime.datetime.utcnow()
     }
     key = "secret_key"
@@ -47,7 +47,7 @@ def get_token(username):
     return token
 
 def get_username(token):
-    """Verity token: should be True if token is valid value.
+    """Verity token: should be True if token is effective value.
     For example:
         >>> jwt.decode(token, "secret_key", algorithm="HS256")
     """
