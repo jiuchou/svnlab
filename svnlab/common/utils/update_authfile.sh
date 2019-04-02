@@ -9,7 +9,7 @@ new_role=$5
 cp ${authfile} ${authfile}_backup
 path_position=$(grep -rn "\[${module}\:\/${path}\]" ${authfile}_backup | awk -F ':' '{print $1}')
 user_positions=$(grep -rn ${user} ${authfile}_backup | awk -F ':' '{print $1}')
-for user_position in ${user_positions}; do
+for user_position in ${user_positions[@]}; do
     if [[ ${path_position} -lt ${user_position} ]]; then
         break
     fi
