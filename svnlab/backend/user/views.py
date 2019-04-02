@@ -68,6 +68,7 @@ def getUserPermissionList(request):
         limit = req['limit']
 
         roles = UserRole.objects.filter(username=username)\
+                                .exclude(role=0)\
                                 .values("username",
                                         "role",
                                         "module",
